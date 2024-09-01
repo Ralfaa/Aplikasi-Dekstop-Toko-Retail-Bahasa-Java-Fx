@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StrukOrder" language="groovy" pageWidth="325" pageHeight="641" columnWidth="300" leftMargin="14" rightMargin="11" topMargin="0" bottomMargin="0" uuid="7d1a1316-05a0-450d-b0eb-05f9f27e789a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapterWarungMaduraEksklusive"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="id_transaksi_penjualan" class="java.lang.String"/>
+	<parameter name="cash" class="java.lang.String"/>
+	<parameter name="Changes" class="java.lang.String"/>
+	<parameter name="Point" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    tp.id_transaksi_penjualan,
+    tp.id_karyawan,
+    k.NamaKaryawan AS NamaKaryawan,
+    tp.id_promo,
+    COALESCE(pd.NamaPromo, 'Tidak Ada Promo') AS NamaPromo,
+    COALESCE(pd.Persentase_Diskon, 0) AS PersentaseDiskon,
+    tp.id_pelanggan,
+    tp.TotalHarga,
+    tp.TanggalTransaksi,
+    dp.id_produk,
+    p.NamaProduk AS NamaProduk,
+    p.HargaJual AS HargaJual,
+    p.PromoDiskon AS PromoDiskon,
+    dp.Qty,
+    dp.Harga,
+    COALESCE(m.Nama, 'Non Member') AS NamaMember
+FROM
+    TransaksiPenjualan tp
+    INNER JOIN DetailPenjualan dp ON tp.id_transaksi_penjualan = dp.id_transaksi_penjualan
+    INNER JOIN Produk p ON dp.id_produk = p.id_produk
+    INNER JOIN Karyawan k ON tp.id_karyawan = k.id_karyawan
+    LEFT JOIN Member m ON tp.id_pelanggan = m.id_member
+    LEFT JOIN PromoDiskon pd ON tp.id_promo = pd.id_promo
+Where tp.id_transaksi_penjualan = $P{id_transaksi_penjualan}]]>
+	</queryString>
+	<field name="id_transaksi_penjualan" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_transaksi_penjualan"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_transaksi_penjualan"/>
+	</field>
+	<field name="id_karyawan" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_karyawan"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_karyawan"/>
+	</field>
+	<field name="NamaKaryawan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NamaKaryawan"/>
+		<property name="com.jaspersoft.studio.field.label" value="NamaKaryawan"/>
+	</field>
+	<field name="id_promo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_promo"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_promo"/>
+	</field>
+	<field name="NamaPromo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NamaPromo"/>
+		<property name="com.jaspersoft.studio.field.label" value="NamaPromo"/>
+	</field>
+	<field name="PersentaseDiskon" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="PersentaseDiskon"/>
+		<property name="com.jaspersoft.studio.field.label" value="PersentaseDiskon"/>
+	</field>
+	<field name="id_pelanggan" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_pelanggan"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_pelanggan"/>
+	</field>
+	<field name="TotalHarga" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="TotalHarga"/>
+		<property name="com.jaspersoft.studio.field.label" value="TotalHarga"/>
+	</field>
+	<field name="TanggalTransaksi" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="TanggalTransaksi"/>
+		<property name="com.jaspersoft.studio.field.label" value="TanggalTransaksi"/>
+	</field>
+	<field name="id_produk" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_produk"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_produk"/>
+	</field>
+	<field name="NamaProduk" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NamaProduk"/>
+		<property name="com.jaspersoft.studio.field.label" value="NamaProduk"/>
+	</field>
+	<field name="HargaJual" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="HargaJual"/>
+		<property name="com.jaspersoft.studio.field.label" value="HargaJual"/>
+	</field>
+	<field name="PromoDiskon" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="PromoDiskon"/>
+		<property name="com.jaspersoft.studio.field.label" value="PromoDiskon"/>
+	</field>
+	<field name="Qty" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="Qty"/>
+	</field>
+	<field name="Harga" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Harga"/>
+		<property name="com.jaspersoft.studio.field.label" value="Harga"/>
+	</field>
+	<field name="NamaMember" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NamaMember"/>
+		<property name="com.jaspersoft.studio.field.label" value="NamaMember"/>
+	</field>
+	<variable name="diskon_event" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Harga}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="total_gross" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{HargaJual}.doubleValue() * $F{Qty}.doubleValue()]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="total_Disc" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{HargaJual}.doubleValue() * $F{Qty}.doubleValue()) * $F{PromoDiskon}.doubleValue() / 100]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-14" y="0" width="325" height="29" forecolor="#053B50" backcolor="#053B50" uuid="18f4e383-4e42-4eac-b05d-9d2b6f3d9a3a"/>
+				<graphicElement>
+					<pen lineColor="#053B50"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="46" y="34" width="204" height="27" uuid="66fe3f80-9a8e-48fc-a9fa-f1d1dd7e66a0"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[WARUNG MADURA EKSKLUSIF SELANG NANGKA 2
+PT. SUMBER WARUNGIA MADURIA, TBK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="60" width="204" height="34" uuid="376ac884-1f9c-4e3d-8f32-7d1a71ee49aa"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MADURA TOWER LT.31, JATI PILAR, CIKARANG
+KP. SELANG NANGKA RT.001 RW.011 CIKARANG
+NPWP : 01.336.238.9-054.000]]></text>
+			</staticText>
+			<image>
+				<reportElement x="108" y="1" width="80" height="34" uuid="ad3117a1-c4c7-4074-97a8-0ce1cadc1891"/>
+				<imageExpression><![CDATA["C:/Users/LENOVO/Downloads/WMXP.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="-14" y="0" width="325" height="20" uuid="6940e4c4-60cf-42bf-b7a2-24e44ea31a8d"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[==================================================================]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="11" width="79" height="20" uuid="692d96e0-16c7-4684-a8b6-d5f957a16e37"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cashier: " + $F{NamaKaryawan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-14" y="11" width="325" height="20" uuid="a7578fac-25a4-4c58-99a7-99ee67df0181"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[==================================================================]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-1" y="12" width="191" height="18" uuid="7b33d6da-9b5f-42d9-9415-e3f6894eda49"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No Trans: WME-" + new SimpleDateFormat("dd").format($F{TanggalTransaksi}) +new SimpleDateFormat("MM").format($F{TanggalTransaksi}) + "-PBY" + String.format("%05d", $F{id_transaksi_penjualan}) +  "X" + new SimpleDateFormat("yy").format($F{TanggalTransaksi})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="39" width="94" height="12" uuid="37ec980e-ea37-47f4-8a40-c46c942922df"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Product Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="39" width="37" height="12" uuid="06cda532-4431-4bb7-88ad-a18ca15e2604"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="39" width="60" height="12" uuid="1f88f8d9-14eb-40b3-a909-866336cc27f8"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="39" width="49" height="12" uuid="c979ca69-97b0-4cb9-a32b-275bedd15274"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Disc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="39" width="60" height="12" uuid="aee358a8-5a6c-4146-a1b9-259cc6d6aa49"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="36" width="325" height="20" uuid="23bb63fe-7972-49ae-a4b0-8d919e0304f2"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="-1" y="2" width="94" height="12" uuid="1ad4551c-1ba8-4240-b8d9-8de1a450b4f8"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NamaProduk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="2" width="37" height="12" uuid="d78d2d19-8e50-4dc9-94be-8cd29a8391d2"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="2" width="60" height="12" uuid="5fca342f-dd96-4c90-83dd-3fad72dbc48d"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($F{Harga})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="2" width="60" height="12" uuid="9e9814e3-7e7f-45cb-b0bc-6be8ca2154f4"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($F{HargaJual})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="2" width="49" height="12" uuid="d7d50922-61d6-4fc7-ba90-36245f91f882">
+					<property name="com.jaspersoft.studio.element.name" value="diskon"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-" +new java.text.DecimalFormat("#,##0").format(($F{HargaJual}.doubleValue() * $F{Qty}.doubleValue()) * $F{PromoDiskon}.doubleValue() / 100)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement x="-14" y="3" width="325" height="20" uuid="198e0bd3-471c-46c7-98ca-230a79722462"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[==================================================================]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="28" width="93" height="11" uuid="fce650b7-e591-4d88-8103-d0d2f823a538"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Total Gross:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="41" width="93" height="12" uuid="87838416-a1c9-47fe-bc8f-31a73c94b659"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Total Disc:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="55" width="93" height="12" uuid="99ffefd4-f7a5-4940-a35c-52bce5ed29db"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Total Nett:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="55" width="99" height="12" uuid="9a66501a-01e3-4975-b975-00c0e5f2ca81"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($F{TotalHarga})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-14" y="56" width="325" height="20" uuid="4ab1725c-ec24-42c8-bcfa-8e7fe2546d80"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="14" width="93" height="12" uuid="f3b345b7-ef3b-4078-a36c-dd1a15563069"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Discount Event:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="41" width="99" height="12" uuid="1a79acc6-2c6c-4669-addf-39229d237312"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($V{total_Disc} + ($V{diskon_event} * $F{PersentaseDiskon}.doubleValue() / 100))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="28" width="99" height="11" uuid="5924ab5a-f0f0-4635-a56d-5b784721e4f4"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($V{total_gross})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="15" width="99" height="11" uuid="fff9ef16-5787-46be-897e-6d29b29b2fc3"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format(($V{diskon_event} * $F{PersentaseDiskon}.doubleValue() / 100))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="80" width="93" height="11" uuid="08a81c8c-8995-4658-acfc-d7ded5aa22c6"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Cash:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="93" width="93" height="11" uuid="c2420710-cc24-45ec-9a2d-4483705b05f3"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="8"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Changes:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="80" width="99" height="11" uuid="a061beed-06b9-4a59-9ed7-70c44c6cff70"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cash}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="93" width="99" height="11" uuid="3b161d9f-8384-4535-9680-e76108f58225"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Changes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-14" y="98" width="325" height="20" uuid="a164719c-6271-4e87-833f-f1b4fd3319d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[==================================================================]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="111" splitType="Stretch">
+			<textField>
+				<reportElement x="98" y="0" width="100" height="13" uuid="a61a8c19-cba3-4c32-ad5b-e2420c082841"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date: " + $F{TanggalTransaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="13" width="166" height="13" uuid="dcb5a952-1916-4c0a-a82d-cbc4d70320a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Member: " + $F{NamaMember}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="26" width="100" height="13" uuid="28d2ec61-b02b-4a63-91a3-5e49f26edfe2"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Your WM-Point: " + $P{Point}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-14" y="32" width="325" height="20" uuid="be14fcd8-f0d8-4dae-843d-c9d03bdba119"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[================= THANK YOU, HAPPY SHOPPING AGAIN =================]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="57" width="300" height="11" uuid="e74d7829-d297-4752-b822-315ef4583da0"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Call Center: 1500580  Email: WarungMadura123@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="70" width="300" height="11" uuid="1d977fa4-706d-4bb1-9abb-a5d42401fb8e"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PRICE INCLUDES TAX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="83" width="300" height="25" uuid="8755eacd-270b-480c-813c-fbc5a584e9ca"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+					<paragraph lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[ITEMS THAT HAVE BEEN PURCHASED CANNOT 
+BE EXCHANGED/RETURNED]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
